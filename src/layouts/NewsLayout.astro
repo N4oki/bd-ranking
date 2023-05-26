@@ -5,7 +5,7 @@ import FormatedDate from "../components/FormatedDate.astro";
 
 type Props = CollectionEntry<"news">["data"];
 
-const { title, description, pub_date, updated_date, hero_image } = Astro.props;
+const { title, pub_date, updated_date, hero_image } = Astro.props;
 
 const date = new Date(pub_date);
 ---

@@ -7,5 +7,5 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), mdx(), react()],
-  site: "https://localhost:3000",
+  site: "https://bd-ranking.vercel.app/",
 });
