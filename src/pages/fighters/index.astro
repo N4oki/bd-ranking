@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import FighterList from "../../components/react/FighterList";
+
+const fighterEntries = await getCollection("fighters");
+---
+
+<Layout
+  title="選手一覧"
+  description={"選手一覧：ブレイキングダウンの戦士たちを一挙にご紹介。個々の選手の詳細プロフィール、戦績などを通じて、彼らの熱狂的なファンになる準備をしましょう"}
+>
+  <div class="w-full">
+    <FighterList client:load fighterEntries={fighterEntries} />
+  </div>
+</Layout>

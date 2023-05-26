@@ -1,0 +1,30 @@
+---
+interface Props {
+  lose_by_method: {
+    percentage: number;
+    name: string;
+    value: number;
+  }[];
+}
+const { lose_by_method } = Astro.props;
+---
+
+<div
+  class="border bg-gray-100 dark:bg-zinc-700 border-black/5 dark:border-white/5 rounded-lg p-2 sm:p-4 col-span-6 lg:col-span-3"
+>
+  <h2 class="text-md sm:text-lg font-semibold mb-4">LOSE BY METHOD</h2>
+  <div class="flex flex-col gap-2">
+    {
+      lose_by_method.map((item) => {
+        return (
+          <div class="flex flex-row justify-between">
+            <p class=" font-semibold text-md sm:text-xl">{item.name} :</p>
+            <p class=" font-semibold text-md sm:text-xl">
+              {item.value} {`[${item.percentage}%]`}
+            </p>
+          </div>
+        );
+      })
+    }
+  </div>
+</div>

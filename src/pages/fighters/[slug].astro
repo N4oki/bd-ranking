@@ -1,0 +1,89 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import FightsLog from "../../components/fighterPage/FightsLog.astro";
+import SNS from "../../components/fighterPage/SNS.astro";
+import ResultByMethod from "../../components/fighterPage/ResultByMethod.astro";
+
+export async function getStaticPaths() {
+  const fighterEntries = await getCollection("fighters");
+  return fighterEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"fighters">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const win_by_method = [
+  {
+    percentage: entry.data.record.win.percentage.ko,
+    name: "KO/TKO",
+    value: entry.data.record.win.ko,
+  },
+  {
+    percentage: entry.data.record.win.percentage.submission,
+    name: "一本",
+    value: entry.data.record.win.submission,
+  },
+  {
+    percentage: entry.data.record.win.percentage.decisions,
+    name: "判定",
+    value: entry.data.record.win.decisions,
+  },
+];
+
+const lose_by_method = [
+  {
+    percentage: entry.data.record.lose.percentage.ko,
+    name: "KO/TKO",
+    value: entry.data.record.lose.ko,
+  },
+  {
+    percentage: entry.data.record.lose.percentage.submission,
+    name: "一本",
+    value: entry.data.record.lose.submission,
+  },
+  {
+    percentage: entry.data.record.lose.percentage.decisions,
+    name: "判定",
+    value: entry.data.record.lose.decisions,
+  },
+];
+---
+
+<Layout title={entry.data.name}>
+  <section class="mx-auto">
+    <div class="my-4 gap-4 sm:my-8 sm:flex sm:flex-row sm:items-end">
+      <h1 class="text-3xl font-bold">{entry.data.name}</h1>
+      <p>
+        BREAKING DOWN {entry.data.record.total_fights} 戦 {
+          entry.data.record.win.total
+        } 勝 {entry.data.record.lose.total} 敗
+      </p>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4">
+      <SNS sns={entry.data.sns} />
+      <ResultByMethod
+        result="WIN"
+        data={win_by_method}
+        total={entry.data.record.win.total}
+      />
+      <ResultByMethod
+        result="LOSE"
+        data={lose_by_method}
+        total={entry.data.record.lose.total}
+      />
+      <FightsLog log={entry.data.record.log} />
+    </div>
+  </section>
+
+  <Content />
+</Layout>

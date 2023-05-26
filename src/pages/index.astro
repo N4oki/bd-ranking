@@ -1,81 +1,91 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/react/Header";
+import Parallax from "../components/react/Parallax";
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
-	</main>
-</Layout>
+<!DOCTYPE html>
+<html lang="ja" class="bg-black text-white">
+  <BaseHead title={"HOME"} />
+  <body>
+    <main class="relative mx-auto h-screen w-full max-w-3xl px-4">
+      <Header client:load />
+      <div
+        id="hero"
+        class="relative flex h-screen snap-center flex-col items-center justify-center"
+      >
+        <h1
+          class="text-center font-display text-6xl font-extrabold text-primary-red shadow-lg md:text-[150px]"
+        >
+          BREAKING HUB
+        </h1>
+        <p class="text-center font-mono text-xl md:text-3xl">
+          1分間で選手の情報をゲット。
+        </p>
+        <div class="arrows">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <Parallax client:load />
 
-<style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
-</style>
+      <div
+        class="relative flex h-screen snap-center flex-col items-center justify-center"
+      >
+        <ul class="flex flex-col gap-4 text-2xl">
+          <li class="rounded-sm p-2 text-center hover:bg-primary-red">
+            <a href="/ranking">ランキング</a>
+          </li>
+          <li class="rounded-sm p-2 text-center hover:bg-primary-red">
+            <a href="/fighters">選手一覧</a>
+          </li>
+          <li class="rounded-sm p-2 text-center hover:bg-primary-red">
+            <a href="/news">ブレイキングニュース</a>
+          </li>
+        </ul>
+      </div>
+    </main>
+
+    <style>
+      .arrows {
+        position: absolute;
+        left: 50%;
+        top: 75%;
+        transform: translateX(-50%);
+      }
+
+      .arrows span {
+        display: block;
+        border-bottom: solid #b40001 2px;
+        border-right: solid #b40001 2px;
+        height: 25px;
+        width: 25px;
+        transform: rotate(45deg);
+        animation: scroll 2s infinite;
+      }
+      .arrows span:nth-child(2) {
+        animation-delay: 0.2s;
+        transform: rotate(45deg) translate(-20px, -20px);
+      }
+
+      .arrows span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes scroll {
+        0% {
+          opacity: 0;
+          transform: rotate(45deg) translate(-20px, -20px);
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: rotate(45deg) translate(20px, 20px);
+        }
+      }
+    </style>
+  </body>
+</html>

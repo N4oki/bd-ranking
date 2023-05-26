@@ -1,0 +1,41 @@
+---
+import { getEntry } from "astro:content";
+import { MOST_VOTED } from "../../const";
+
+const ranking = await getEntry("ranking", "most-voted");
+---
+
+<!-- <>
+  {
+    MOST_VOTED.map((fighter, index) => {
+      return (
+        <div class="flex h-screen shrink-0  snap-center flex-col items-center justify-center ">
+          {index == 0 && (
+            <h2 class=" w-full text-center font-mono text-5xl">
+              ファン人気投票
+            </h2>
+          )}
+          <h3 class="w-max bg-primary-red px-4">
+            <span>{index + 1}</span> {fighter.name}
+          </h3>
+          <img
+            src={fighter.image}
+            alt="alt"
+            class="z-40 max-h-[500px] grayscale before:bg-black "
+          />
+        </div>
+      );
+    })
+  }
+</> -->
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+</style>

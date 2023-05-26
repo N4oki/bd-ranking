@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+import RankingUl from "../components/ranking/RankingUl.astro";
+import RankingLi from "../components/ranking/RankingLi.astro";
+import RankingStrong from "../components/ranking/RankingStrong.astro";
+import RankingAnchor from "../components/ranking/RankingAnchor.astro";
+import RankingImg from "../components/ranking/RankingImg.astro";
+import FormatedDate from "../components/FormatedDate.astro";
+
+const ranking = await Astro.glob("../content/ranking/*.mdx");
+---
+
+<Layout
+  title="ランキング"
+  description="一分間最強を目指す選手たちの順位が明らかに! BREAKING HUBでは、激しい戦いの結果から導き出される上位選手たちの順位や成績をご紹介。格闘技ファンなら見逃せない情報です。"
+>
+  <section
+    class="mx-auto mb-14 mt-14 grid w-full max-w-screen-2xl gap-4 prose-ul:pl-0 md:grid-cols-2"
+  >
+    {
+      ranking.map((item) => {
+        const date = new Date(item.frontmatter.updated_date);
+        return (
+          <>
+            <div class="min-w-280 flex flex-1 flex-col">
+              <div class="my-4 flex w-max flex-col justify-end gap-2 bg-primary-red px-4">
+                <p class="text-3xl font-semibold">{item.frontmatter.title}</p>
+              </div>
+              {item && (
+                <item.Content
+                  components={{
+                    ul: RankingUl,
+                    li: RankingLi,
+                    a: RankingAnchor,
+                    strong: RankingStrong,
+                    img: RankingImg,
+                  }}
+                />
+              )}
+              <FormatedDate date={date} />
+            </div>
+          </>
+        );
+      })
+    }
+  </section>
+</Layout>

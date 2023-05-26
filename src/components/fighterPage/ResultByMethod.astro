@@ -1,0 +1,45 @@
+---
+import ProgressCircle from "../react/ProgressCircle";
+
+interface Props {
+  data: {
+    percentage: number;
+    name: string;
+    value: number;
+  }[];
+  result: string;
+  total: number;
+}
+
+const { data, result, total } = Astro.props;
+---
+
+<div
+  class="col-span-12 flex flex-col rounded-lg border border-white/5 bg-zinc-700 p-2 md:col-span-8 md:p-4"
+>
+  <h2 class="text-md mb-4 font-semibold sm:text-lg">
+    {result} BY METHOD - {total}
+    {total > 1 ? `${result}S` : `${result}`}
+  </h2>
+
+  <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+    {
+      data.map((item) => {
+        return (
+          <div>
+            <ProgressCircle
+              percentage_decimal={item.percentage}
+              stroke_color={
+                result == "WIN" ? "stroke-primary-red" : "stroke-black"
+              }
+              client:load
+            />
+            <p class="mt-4 text-center">
+              {item.name}: {item.value}
+            </p>
+          </div>
+        );
+      })
+    }
+  </div>
+</div>

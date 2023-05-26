@@ -1,0 +1,33 @@
+---
+import ProgressCircle from "../react/ProgressCircle";
+
+interface Props {
+  win_by_method: {
+    percentage: number;
+    name: string;
+    value: number;
+  }[];
+}
+const { win_by_method } = Astro.props;
+---
+
+<div
+  class="bg-gray-100 dark:bg-zinc-700 flex flex-col border border-black/5 dark:border-white/5 rounded-lg p-2 sm:p-4 col-span-12 lg:col-span-9"
+>
+  <h2 class="text-md sm:text-lg font-semibold mb-4">WIN BY METHOD</h2>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+    {
+      win_by_method.map((item) => {
+        return (
+          <div class=" flex-1 flex-col flex justify-center items-center">
+            <ProgressCircle percentage_decimal={item.percentage} client:load />
+            <p class=" font-bold sm:text-md text-lg">
+              {item.name} : {item.value}
+            </p>
+          </div>
+        );
+      })
+    }
+  </div>
+</div>

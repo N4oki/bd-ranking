@@ -1,0 +1,28 @@
+---
+interface Props {
+  record: {
+    title: string;
+    value: string;
+    percentage?: number;
+  }[];
+}
+const { record } = Astro.props;
+---
+
+{
+  record.map((item) => {
+    <div class="flex flex-col justify-between border bg-gray-100 dark:bg-zinc-700 backdrop-blur-md border-black/5 dark:border-white/5 rounded-lg p-2 sm:p-4 col-span-6 lg:col-span-3">
+      <h2 class="text-md sm:text-lg font-semibold mb-4">{item.title}</h2>
+
+      <div class="flex flex-col sm:flex-row items-baseline justify-between">
+        <p class="text-xl sm:text-4xl font-bold">{item.value}</p>
+        <p class="text-xs sm:text-lg font-semibold">
+          {item.percentage && `[勝率 : ${item.percentage}%]`}
+        </p>
+        {item.title == "DRAW-NC" && (
+          <p class=" text-xs sm:text-sm font-semibold">＊引き分け-無効試合</p>
+        )}
+      </div>
+    </div>;
+  })
+}

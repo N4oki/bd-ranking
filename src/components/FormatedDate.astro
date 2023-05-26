@@ -1,0 +1,18 @@
+---
+export interface Props {
+  date: Date;
+}
+
+const { date } = Astro.props;
+---
+
+<time datetime={date.toISOString()} class="flex flex-row gap-4 p-2">
+  <p>最終更新</p>
+  {
+    date.toLocaleDateString("ja", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
+  }
+</time>
