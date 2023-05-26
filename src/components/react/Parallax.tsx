@@ -52,7 +52,7 @@ function Fighter({ imageProps, index }: imageItemProps) {
           }}
         >
           <h2 className="text-lg md:text-3xl">{text}</h2>
-          <p className="hidden text-2xl md:block">{description}</p>
+          <p className="hidden text-xl md:block">{description}</p>
         </motion.div>
       </div>
     </section>

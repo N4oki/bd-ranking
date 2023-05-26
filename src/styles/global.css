@@ -2,3 +2,8 @@ html {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
+
+strong {
+  display: grid;
+  align-content: center;
+}

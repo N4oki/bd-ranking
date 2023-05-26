@@ -37,7 +37,10 @@ const ranking = await Astro.glob("../content/ranking/*.mdx");
                   }}
                 />
               )}
-              <FormatedDate date={date} />
+              <div class="flex flex-row gap-4 p-2">
+                <p>最終更新</p>
+                <FormatedDate date={date} />
+              </div>
             </div>
           </>
         );

@@ -1,7 +1,36 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import FormatedDate from "../../components/FormatedDate.astro";
+
+const news = (await getCollection("news")).sort(
+  (a, b) => a.data.pub_date.valueOf() - b.data.pub_date.valueOf()
+);
 ---
 
 <Layout title="ブレイキングニュース">
-  <h1>breaking news</h1>
+  <section class="mx-auto mt-8 grid w-full max-w-5xl grid-cols-12 gap-4">
+    {
+      news.map((post) => {
+        const date = new Date(post.data.pub_date);
+        return (
+          <a
+            href={`/news/${post.slug}/`}
+            class="col-span-6 mt-4 flex flex-col justify-between gap-4 sm:col-span-4"
+          >
+            <img
+              src={post.data.hero_image}
+              alt=""
+              class="aspect-square w-full object-cover"
+            />
+
+            <div class="flex-1">
+              <h3 class="text-sm sm:text-2xl">{post.data.title}</h3>
+              <FormatedDate date={date} />
+            </div>
+          </a>
+        );
+      })
+    }
+  </section>
 </Layout>

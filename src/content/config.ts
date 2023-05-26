@@ -62,4 +62,19 @@ const fighters = defineCollection({
   }),
 });
 
-export const collections = { ranking, fighters };
+const news = defineCollection({
+  // Type-check frontmatter using a schema
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    // Transform string to Date object
+    pub_date: z.number(),
+    updated_date: z
+      .number()
+      .optional()
+      .transform((num) => (num ? new Date(num) : undefined)),
+    hero_image: z.string().optional(),
+  }),
+});
+
+export const collections = { ranking, fighters, news };
