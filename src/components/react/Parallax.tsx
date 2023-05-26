@@ -31,7 +31,7 @@ function Fighter({ imageProps, index }: imageItemProps) {
   const IS_EVEN = (index + 1) % 2 == 0;
 
   return (
-    <section className="relative mx-auto flex h-screen min-h-[600px] w-4/5 max-w-3xl  snap-center items-center justify-center md:w-[70%] md:w-[80%]">
+    <section className="relative mx-auto flex h-screen min-h-[600px] w-4/5 max-w-3xl  snap-center items-center justify-center md:w-[70%]">
       <div ref={ref}>
         {index == 0 && (
           <h2 className=" mb-8 w-full text-center font-mono text-2xl md:text-5xl">
