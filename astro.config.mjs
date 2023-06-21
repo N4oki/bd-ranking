@@ -9,5 +9,7 @@ export default defineConfig({
   integrations: [tailwind(), mdx(), react()],
   site: "https://bd-ranking.vercel.app/",
   output: "static",
-  adapter: vercel(),
+  adapter: vercel({
+    analytics: true,
+  }),
 });
